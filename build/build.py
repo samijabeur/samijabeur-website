@@ -161,6 +161,7 @@ class Builder:
             inner = self.video_tag(R, (c or {}).get('video'), 'loop')
             if not inner: return ''
             cls.append('cell--media cell--bgvideo')
+            if b.get('fit') == 'contain': cls.append('cell--vcontain')
         elif t == 'film':
             inner = self.video_tag(R, (c or {}).get('video'), 'player')
             if not inner: return ''

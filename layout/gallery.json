@@ -70,7 +70,8 @@
      "jc_m": "flex-start",
      "jc_d": "flex-start",
      "type": "bgvideo",
-     "key": "v1"
+     "key": "v1",
+     "fit": "contain"
     },
     {
      "id": "yui_3_17_2_1_1738708839750_23989",
@@ -81,7 +82,8 @@
      "jc_m": "flex-start",
      "jc_d": "flex-start",
      "type": "bgvideo",
-     "key": "v2"
+     "key": "v2",
+     "fit": "contain"
     },
     {
      "id": "60337a2c117eb8191e98",
@@ -92,7 +94,8 @@
      "jc_m": "flex-start",
      "jc_d": "flex-start",
      "type": "bgvideo",
-     "key": "v3"
+     "key": "v3",
+     "fit": "contain"
     }
    ]
   },
