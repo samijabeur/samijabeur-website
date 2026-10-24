@@ -1,0 +1,59 @@
+# Baut die Website bei jeder Änderung neu und veröffentlicht sie auf GitHub Pages.
+# Auslöser: jede Änderung im Repository (also auch jede Speicherung im CMS) – oder von Hand
+# über den Reiter "Actions" -> "Website veröffentlichen" -> "Run workflow".
+name: Website veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Werkzeuge installieren
+        run: |
+          pip install -r build/requirements.txt
+          which ffmpeg >/dev/null 2>&1 || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg)
+
+      # Bereits verkleinerte Bilder werden zwischengespeichert, damit nur neue Bilder Zeit kosten
+      - uses: actions/cache@v5
+        with:
+          path: build/.cache
+          key: bilder-${{ hashFiles('media/images/**') }}
+          restore-keys: bilder-
+
+      - name: Website bauen
+        run: python3 build/build.py --out dist
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

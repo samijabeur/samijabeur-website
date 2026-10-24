@@ -1,0 +1,1614 @@
+# Konfiguration für Pages CMS (https://pagescms.org) – steuert, was du im Editor siehst.
+# Erzeugt mit tools/make_cms_config.py aus dem festen Seitenraster (layout/*.json).
+# Bitte nicht von Hand ändern, außer du weißt, was du tust: Eine Änderung hier verändert nur die
+# Eingabemaske, nicht die Website.
+components:
+  block_text:
+    type: object
+    fields:
+    - name: text
+      label: Text
+      type: text
+      description: Enter = neue Zeile. **fett**, *kursiv*, [Linktext](https://…) oder [Linktext](/vortex) sind möglich.
+    - name: style
+      label: Aussehen
+      type: select
+      options:
+        values:
+        - value: title-xl
+          label: Sehr große Überschrift
+        - value: title
+          label: Große Überschrift
+        - value: lead
+          label: Großer Text
+        - value: body
+          label: Normaler Text
+        - value: small
+          label: Kleiner Text (Fußnote)
+    - name: align
+      label: Ausrichtung
+      type: select
+      options:
+        values:
+        - value: center
+          label: Zentriert
+        - value: left
+          label: Linksbündig
+        - value: right
+          label: Rechtsbündig
+        - value: justify
+          label: Blocksatz
+  block_image:
+    type: object
+    fields:
+    - name: image
+      label: Bild
+      type: image
+      options:
+        media: images
+    - name: alt
+      label: Bildbeschreibung (für Blinde und Google, optional)
+      type: string
+    - name: size
+      label: Größe
+      type: select
+      options:
+        values:
+        - value: full
+          label: Volle Breite (bis an den Rand)
+        - value: wide
+          label: Breit (mit Rand)
+        - value: medium
+          label: Mittel
+        - value: small
+          label: Klein
+  block_film:
+    type: object
+    fields:
+    - name: video
+      label: Video (MP4)
+      type: file
+      options:
+        media: videos
+        extensions:
+        - mp4
+        - webm
+    - name: mode
+      label: Wiedergabe
+      type: select
+      options:
+        values:
+        - value: player
+          label: Mit Abspielleiste (Ton, Pause, Vollbild)
+        - value: loop
+          label: Dauerschleife ohne Ton (wie ein bewegtes Bild)
+    - name: ratio
+      label: Seitenverhältnis
+      type: select
+      options:
+        values:
+        - value: '16:9'
+          label: 16:9 (Querformat)
+        - value: '4:3'
+          label: '4:3'
+        - value: '3:2'
+          label: '3:2'
+        - value: '1:1'
+          label: Quadrat
+        - value: '9:16'
+          label: 9:16 (Hochformat)
+    - name: size
+      label: Größe
+      type: select
+      options:
+        values:
+        - value: full
+          label: Volle Breite (bis an den Rand)
+        - value: wide
+          label: Breit (mit Rand)
+        - value: medium
+          label: Mittel
+        - value: small
+          label: Klein
+    - name: poster
+      label: Vorschaubild (optional; sonst wird ein Bild aus dem Video genommen)
+      type: image
+      options:
+        media: images
+    - name: title
+      label: Titel des Videos (für Blinde, optional)
+      type: string
+  block_gallery:
+    type: object
+    fields:
+    - name: layout
+      label: Anordnung
+      type: select
+      options:
+        values:
+        - value: masonry
+          label: Mauerwerk (Bilder in ihrer eigenen Höhe)
+        - value: grid
+          label: Raster (alle gleich groß)
+        - value: strips
+          label: Streifen (Bilder nebeneinander in einer Zeile)
+    - name: columns
+      label: Spalten (bei Mauerwerk und Raster)
+      type: select
+      options:
+        values:
+        - value: '2'
+          label: '2'
+        - value: '3'
+          label: '3'
+        - value: '4'
+          label: '4'
+        - value: '5'
+          label: '5'
+    - name: gap
+      label: Abstand zwischen den Bildern
+      type: select
+      options:
+        values:
+        - value: none
+          label: Kein Abstand
+        - value: small
+          label: Klein
+        - value: medium
+          label: Mittel
+    - name: width
+      label: Breite
+      type: select
+      options:
+        values:
+        - value: inset
+          label: Mit Rand
+        - value: full-bleed
+          label: Randlos (bis an den Bildschirmrand)
+        - value: full
+          label: Fast randlos
+    - name: ratio
+      label: Bildformat (nur bei Raster)
+      type: select
+      options:
+        values:
+        - value: '4:3'
+          label: 4:3 Querformat
+        - value: '2:3'
+          label: 2:3 Hochformat
+        - value: '1:1'
+          label: Quadrat
+    - name: lightbox
+      label: Bild beim Anklicken groß zeigen
+      type: boolean
+      default: true
+    - name: images
+      label: Bilder
+      type: image
+      options:
+        media: images
+        multiple: true
+        unique: true
+      description: Fotos hier hineinziehen oder hochladen. Reihenfolge durch Ziehen ändern, Foto entfernen über den Papierkorb.
+  block_credits:
+    type: object
+    fields:
+    - name: rows
+      label: Zeilen
+      type: object
+      list:
+        collapsible:
+          collapsed: false
+          summary: '{role}: {names}'
+      fields:
+      - name: role
+        label: Rolle (z. B. director)
+        type: string
+      - name: names
+        label: Name(n)
+        type: text
+        description: 'Mehrere Namen: jeweils in eine neue Zeile.'
+  block_tiles:
+    type: object
+    fields:
+    - name: items
+      label: Kacheln
+      type: object
+      list:
+        collapsible:
+          collapsed: false
+          summary: '{title}'
+      fields:
+      - name: title
+        label: Titel
+        type: string
+      - name: link
+        label: Link
+        type: string
+        description: Seite dieser Website (z. B. /vortex) oder eine Adresse mit https://
+      - name: image
+        label: Bild
+        type: image
+        options:
+          media: images
+      - name: video
+        label: oder Video (hat Vorrang vor dem Bild)
+        type: file
+        options:
+          media: videos
+          extensions:
+          - mp4
+          - webm
+  block_spacer:
+    type: object
+    fields:
+    - name: height
+      label: Höhe
+      type: select
+      options:
+        values:
+        - value: small
+          label: Klein
+        - value: medium
+          label: Mittel
+        - value: large
+          label: Groß
+media:
+- name: images
+  label: Bilder
+  input: media/images
+  output: /media/images
+  rename: safe
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
+  - gif
+- name: videos
+  label: Videos und Filme
+  input: media/video
+  output: /media/video
+  rename: safe
+  extensions:
+  - mp4
+  - webm
+content:
+- name: pages
+  label: Seiten
+  type: group
+  items:
+  - name: page_home
+    label: Startseite
+    type: file
+    path: content/pages/home.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Startbild (Vollbild-Hintergrund)
+      type: object
+      fields:
+      - name: bg
+        label: Startbild
+        type: object
+        fields:
+        - name: image
+          label: Bild
+          type: image
+          options:
+            media: images
+        - name: alt
+          label: Bildbeschreibung (für Blinde und Google, optional)
+          type: string
+        - name: focal
+          label: Bildausschnitt (optional, für Fortgeschrittene)
+          type: string
+          description: Zwei Zahlen zwischen 0 und 1, z. B. 0.5,0.3. Leer lassen = Bildmitte.
+    - name: s3
+      label: Projekt-Kacheln
+      type: object
+      fields:
+      - name: i1
+        label: Kachel 1 · Bild
+        type: object
+        fields:
+        - name: image
+          label: Bild
+          type: image
+          options:
+            media: images
+        - name: alt
+          label: Bildbeschreibung (für Blinde und Google, optional)
+          type: string
+        - name: focal
+          label: Bildausschnitt (optional, für Fortgeschrittene)
+          type: string
+          description: Zwei Zahlen zwischen 0 und 1, z. B. 0.5,0.3. Leer lassen = Bildmitte.
+      - name: t01
+        label: Kachel 1 · Titel und Link
+        type: object
+        fields:
+        - name: text
+          label: Titel
+          type: string
+        - name: link
+          label: Link
+          type: string
+          description: Seite dieser Website, z. B. /vortex
+      - name: v1
+        label: Kachel 2 · Video
+        type: object
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+      - name: t03
+        label: Kachel 2 · Titel und Link
+        type: object
+        fields:
+        - name: text
+          label: Titel
+          type: string
+        - name: link
+          label: Link
+          type: string
+          description: Seite dieser Website, z. B. /vortex
+      - name: v2
+        label: Kachel 3 · Video
+        type: object
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+      - name: t02
+        label: Kachel 3 · Titel und Link
+        type: object
+        fields:
+        - name: text
+          label: Titel
+          type: string
+        - name: link
+          label: Link
+          type: string
+          description: Seite dieser Website, z. B. /vortex
+      - name: i2
+        label: Kachel 4 · Bild
+        type: object
+        fields:
+        - name: image
+          label: Bild
+          type: image
+          options:
+            media: images
+        - name: alt
+          label: Bildbeschreibung (für Blinde und Google, optional)
+          type: string
+        - name: focal
+          label: Bildausschnitt (optional, für Fortgeschrittene)
+          type: string
+          description: Zwei Zahlen zwischen 0 und 1, z. B. 0.5,0.3. Leer lassen = Bildmitte.
+      - name: t04
+        label: Kachel 4 · Titel und Link
+        type: object
+        fields:
+        - name: text
+          label: Titel
+          type: string
+        - name: link
+          label: Link
+          type: string
+          description: Seite dieser Website, z. B. /vortex
+      - name: i3
+        label: Kachel 5 · Bild
+        type: object
+        fields:
+        - name: image
+          label: Bild
+          type: image
+          options:
+            media: images
+        - name: alt
+          label: Bildbeschreibung (für Blinde und Google, optional)
+          type: string
+        - name: focal
+          label: Bildausschnitt (optional, für Fortgeschrittene)
+          type: string
+          description: Zwei Zahlen zwischen 0 und 1, z. B. 0.5,0.3. Leer lassen = Bildmitte.
+      - name: t05
+        label: Kachel 5 · Titel und Link
+        type: object
+        fields:
+        - name: text
+          label: Titel
+          type: string
+        - name: link
+          label: Link
+          type: string
+          description: Seite dieser Website, z. B. /vortex
+      - name: v3
+        label: Kachel 6 · Video
+        type: object
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+      - name: t06
+        label: Kachel 6 · Titel und Link
+        type: object
+        fields:
+        - name: text
+          label: Titel
+          type: string
+        - name: link
+          label: Link
+          type: string
+          description: Seite dieser Website, z. B. /vortex
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_about
+    label: About
+    type: file
+    path: content/pages/about.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Über mich
+      type: object
+      fields:
+      - name: t01
+        label: Große Überschrift (Text 1)
+        type: text
+        description: 'Ursprünglich: „hey, i’m sami and i am a filmmaker / photogr…“'
+      - name: t02
+        label: Großer Text (Text 2)
+        type: text
+        description: 'Ursprünglich: „i currently study multimedia art with a focu…“'
+      - name: t03
+        label: Kleiner Text (Text 3)
+        type: text
+        description: 'Ursprünglich: „e-mail: [hello@samijabeur.com](mailto:contac…“'
+      - name: i1
+        label: Bild
+        type: object
+        fields:
+        - name: image
+          label: Bild
+          type: image
+          options:
+            media: images
+        - name: alt
+          label: Bildbeschreibung (für Blinde und Google, optional)
+          type: string
+        - name: focal
+          label: Bildausschnitt (optional, für Fortgeschrittene)
+          type: string
+          description: Zwei Zahlen zwischen 0 und 1, z. B. 0.5,0.3. Leer lassen = Bildmitte.
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_becoming
+    label: Becoming
+    type: file
+    path: content/pages/becoming.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Titelbereich
+      type: object
+      fields:
+      - name: t01
+        label: Überschrift (Text 1)
+        type: text
+        description: 'Ursprünglich: „BECOMING“'
+      - name: t02
+        label: Überschrift (Text 2)
+        type: text
+        description: 'Ursprünglich: „upcoming experimental music short film“'
+    - name: s2
+      label: Galerie
+      type: object
+      fields:
+      - name: images
+        label: Bilder
+        type: image
+        options:
+          media: images
+          multiple: true
+          unique: true
+        description: Fotos hier hineinziehen oder hochladen. Reihenfolge durch Ziehen ändern, Foto entfernen über den Papierkorb.
+    - name: s3
+      label: Credits
+      type: object
+      fields:
+      - name: t01
+        label: Credits 01 · Rolle
+        type: string
+        description: 'Ursprünglich: „cast“'
+      - name: t02
+        label: Credits 02 · Name
+        type: text
+        description: 'Ursprünglich: „valerie leick“'
+      - name: t03
+        label: Credits 03 · Name
+        type: text
+        description: 'Ursprünglich: „maeri boldpop“'
+      - name: t04
+        label: Credits 04 · Rolle
+        type: string
+        description: 'Ursprünglich: „director“'
+      - name: t05
+        label: Credits 05 · Name
+        type: text
+        description: 'Ursprünglich: „ipek yilmaz“'
+      - name: t06
+        label: Credits 06 · Rolle
+        type: string
+        description: 'Ursprünglich: „dop “jam & sima”“'
+      - name: t07
+        label: Credits 07 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: t08
+        label: Credits 08 · Rolle
+        type: string
+        description: 'Ursprünglich: „gaffer“'
+      - name: t09
+        label: Credits 09 · Name
+        type: text
+        description: 'Ursprünglich: „sarah friedl“'
+      - name: t10
+        label: Credits 10 · Rolle
+        type: string
+        description: 'Ursprünglich: „art direction“'
+      - name: t11
+        label: Credits 11 · Name
+        type: text
+        description: 'Ursprünglich: „vio zipper“'
+      - name: t12
+        label: Credits 12 · Rolle
+        type: string
+        description: 'Ursprünglich: „music“'
+      - name: t13
+        label: Credits 13 · Name
+        type: text
+        description: 'Ursprünglich: „saskia kleemann“'
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_ragavara
+    label: Ragavara
+    type: file
+    path: content/pages/ragavara.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Titel und Film
+      type: object
+      fields:
+      - name: t01
+        label: Überschrift (Text 1)
+        type: text
+        description: 'Ursprünglich: „RAGAVARA“'
+      - name: f1
+        label: Film
+        type: object
+        description: Zum Austauschen ein neues Video hochladen oder auswählen (MP4, H.264).
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+    - name: s2
+      label: Galerie
+      type: object
+      fields:
+      - name: images
+        label: Bilder
+        type: image
+        options:
+          media: images
+          multiple: true
+          unique: true
+        description: Fotos hier hineinziehen oder hochladen. Reihenfolge durch Ziehen ändern, Foto entfernen über den Papierkorb.
+    - name: s3
+      label: Credits
+      type: object
+      fields:
+      - name: t01
+        label: Credits 01 · Rolle
+        type: string
+        description: 'Ursprünglich: „client“'
+      - name: t02
+        label: Credits 02 · Name
+        type: text
+        description: 'Ursprünglich: „ragavara“'
+      - name: t03
+        label: Credits 03 · Rolle
+        type: string
+        description: 'Ursprünglich: „models“'
+      - name: t04
+        label: Credits 04 · Name
+        type: text
+        description: 'Ursprünglich: „laura schubert“'
+      - name: t05
+        label: Credits 05 · Name
+        type: text
+        description: 'Ursprünglich: „naela ahmed“'
+      - name: t06
+        label: Credits 06 · Name
+        type: text
+        description: 'Ursprünglich: „emil wendt“'
+      - name: t07
+        label: Credits 07 · Rolle
+        type: string
+        description: 'Ursprünglich: „producer“'
+      - name: t08
+        label: Credits 08 · Name
+        type: text
+        description: 'Ursprünglich: „andreas nopp“'
+      - name: t09
+        label: Credits 09 · Rolle
+        type: string
+        description: 'Ursprünglich: „director“'
+      - name: t10
+        label: Credits 10 · Name
+        type: text
+        description: 'Ursprünglich: „bahri khalil“'
+      - name: t11
+        label: Credits 11 · Rolle
+        type: string
+        description: 'Ursprünglich: „art direction“'
+      - name: t12
+        label: Credits 12 · Name
+        type: text
+        description: 'Ursprünglich: „juliane steiner“'
+      - name: t13
+        label: Credits 13 · Rolle
+        type: string
+        description: 'Ursprünglich: „dop“'
+      - name: t14
+        label: Credits 14 · Name
+        type: text
+        description: 'Ursprünglich: „raffaela rädler“'
+      - name: t15
+        label: Credits 15 · Rolle
+        type: string
+        description: 'Ursprünglich: „gaffer“'
+      - name: t16
+        label: Credits 16 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: t17
+        label: Credits 17 · Rolle
+        type: string
+        description: 'Ursprünglich: „post production“'
+      - name: t18
+        label: Credits 18 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: t19
+        label: Credits 19 · Rolle
+        type: string
+        description: 'Ursprünglich: „colorist“'
+      - name: t20
+        label: Credits 20 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: t21
+        label: Credits 21 · Rolle
+        type: string
+        description: 'Ursprünglich: „music“'
+      - name: t22
+        label: Credits 22 · Name
+        type: text
+        description: 'Ursprünglich: „jonas bolz“'
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_eunoia
+    label: Eunoia
+    type: file
+    path: content/pages/eunoia.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Film und Credits
+      type: object
+      fields:
+      - name: t01
+        label: Credits 01 · Name
+        type: text
+        description: 'Ursprünglich: „eunoia“'
+      - name: t02
+        label: Credits 02 · Rolle
+        type: string
+        description: 'Ursprünglich: „cast“'
+      - name: t03
+        label: Credits 03 · Name
+        type: text
+        description: 'Ursprünglich: „lukas stöger, marlett araújo“'
+      - name: t04
+        label: Credits 04 · Rolle
+        type: string
+        description: 'Ursprünglich: „concept, (art)direction & editing“'
+      - name: t05
+        label: Credits 05 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur, bahri khalil, raffaela rädler“'
+      - name: t06
+        label: Credits 06 · Rolle
+        type: string
+        description: 'Ursprünglich: „camera“'
+      - name: t07
+        label: Credits 07 · Name
+        type: text
+        description: 'Ursprünglich: „bahri khalil“'
+      - name: t08
+        label: Credits 08 · Rolle
+        type: string
+        description: 'Ursprünglich: „music/ sound design“'
+      - name: t09
+        label: Credits 09 · Name
+        type: text
+        description: 'Ursprünglich: „parham behzad“'
+      - name: t10
+        label: Credits 10 · Rolle
+        type: string
+        description: 'Ursprünglich: „makeup/costume“'
+      - name: t11
+        label: Credits 11 · Name
+        type: text
+        description: 'Ursprünglich: „vio zipper“'
+      - name: t12
+        label: Credits 12 · Rolle
+        type: string
+        description: 'Ursprünglich: „color“'
+      - name: t13
+        label: Credits 13 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: f1
+        label: Film
+        type: object
+        description: Zum Austauschen ein neues Video hochladen oder auswählen (MP4, H.264).
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_letzter_anruf
+    label: Letzter Anruf
+    type: file
+    path: content/pages/letzter-anruf.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Beschreibung, Film und Credits
+      type: object
+      fields:
+      - name: t01
+        label: Credits 01 · Name
+        type: text
+        description: 'Ursprünglich: „“letzter anruf”“'
+      - name: t02
+        label: Credits 02 · Name
+        type: text
+        description: 'Ursprünglich: „small assignment from my university directin…“'
+      - name: t03
+        label: Credits 03 · Rolle
+        type: string
+        description: 'Ursprünglich: „cast“'
+      - name: t04
+        label: Credits 04 · Name
+        type: text
+        description: 'Ursprünglich: „margot binder david tobias schneider“'
+      - name: t05
+        label: Credits 05 · Rolle
+        type: string
+        description: 'Ursprünglich: „director“'
+      - name: t06
+        label: Credits 06 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: t07
+        label: Credits 07 · Rolle
+        type: string
+        description: 'Ursprünglich: „1st ad“'
+      - name: t08
+        label: Credits 08 · Name
+        type: text
+        description: 'Ursprünglich: „helena ebner“'
+      - name: t09
+        label: Credits 09 · Rolle
+        type: string
+        description: 'Ursprünglich: „art director“'
+      - name: t10
+        label: Credits 10 · Name
+        type: text
+        description: 'Ursprünglich: „luisa mistelberger“'
+      - name: t11
+        label: Credits 11 · Rolle
+        type: string
+        description: 'Ursprünglich: „dop“'
+      - name: t12
+        label: Credits 12 · Name
+        type: text
+        description: 'Ursprünglich: „bahri khalil“'
+      - name: t13
+        label: Credits 13 · Rolle
+        type: string
+        description: 'Ursprünglich: „1st ac“'
+      - name: t14
+        label: Credits 14 · Name
+        type: text
+        description: 'Ursprünglich: „raffela rädler“'
+      - name: t15
+        label: Credits 15 · Rolle
+        type: string
+        description: 'Ursprünglich: „2nd ac“'
+      - name: t16
+        label: Credits 16 · Name
+        type: text
+        description: 'Ursprünglich: „ana flores“'
+      - name: t17
+        label: Credits 17 · Rolle
+        type: string
+        description: 'Ursprünglich: „light“'
+      - name: t18
+        label: Credits 18 · Name
+        type: text
+        description: 'Ursprünglich: „juliane steiner vanessa markt delalle andrea…“'
+      - name: t19
+        label: Credits 19 · Rolle
+        type: string
+        description: 'Ursprünglich: „set audio“'
+      - name: t20
+        label: Credits 20 · Name
+        type: text
+        description: 'Ursprünglich: „sarah schalkhammer laurenz wagner“'
+      - name: t21
+        label: Credits 21 · Rolle
+        type: string
+        description: 'Ursprünglich: „editing“'
+      - name: t22
+        label: Credits 22 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: f1
+        label: Film
+        type: object
+        description: Zum Austauschen ein neues Video hochladen oder auswählen (MP4, H.264).
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_protests_for_justice
+    label: Protests for Justice
+    type: file
+    path: content/pages/protests-for-justice.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Texte
+      type: object
+      fields:
+      - name: t01
+        label: Überschrift (Text 1)
+        type: text
+        description: 'Ursprünglich: „**protests for justice**“'
+      - name: t02
+        label: Großer Text (Text 2)
+        type: text
+        description: 'Ursprünglich: „i took my camera to a few protests around au…“'
+      - name: t03
+        label: Großer Text (Text 3)
+        type: text
+        description: 'Ursprünglich: „long exposure shots inspired by alexey titar…“'
+    - name: s2
+      label: Galerie
+      type: object
+      fields:
+      - name: images
+        label: Bilder
+        type: image
+        options:
+          media: images
+          multiple: true
+          unique: true
+        description: Fotos hier hineinziehen oder hochladen. Reihenfolge durch Ziehen ändern, Foto entfernen über den Papierkorb.
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_vortex
+    label: Vortex
+    type: file
+    path: content/pages/vortex.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s1
+      label: Titel, Einleitung und Film
+      type: object
+      fields:
+      - name: t01
+        label: Überschrift (Text 1)
+        type: text
+        description: 'Ursprünglich: „VORTEX“'
+      - name: t02
+        label: Großer Text (Text 2)
+        type: text
+        description: 'Ursprünglich: „behind-the-scenes documentary capturing the …“'
+      - name: f1
+        label: Film
+        type: object
+        description: Zum Austauschen ein neues Video hochladen oder auswählen (MP4, H.264).
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+    - name: s2
+      label: Galerie
+      type: object
+      fields:
+      - name: images
+        label: Bilder
+        type: image
+        options:
+          media: images
+          multiple: true
+          unique: true
+        description: Fotos hier hineinziehen oder hochladen. Reihenfolge durch Ziehen ändern, Foto entfernen über den Papierkorb.
+    - name: s3
+      label: Credits
+      type: object
+      fields:
+      - name: t01
+        label: Credits 01 · Rolle
+        type: string
+        description: 'Ursprünglich: „sound design and choreography“'
+      - name: t02
+        label: Credits 02 · Name
+        type: text
+        description: 'Ursprünglich: „christina ottoson“'
+      - name: t03
+        label: Credits 03 · Rolle
+        type: string
+        description: 'Ursprünglich: „3D and visual effects“'
+      - name: t04
+        label: Credits 04 · Name
+        type: text
+        description: 'Ursprünglich: „nico urtahler“'
+      - name: t05
+        label: Credits 05 · Rolle
+        type: string
+        description: 'Ursprünglich: „project management“'
+      - name: t06
+        label: Credits 06 · Name
+        type: text
+        description: 'Ursprünglich: „stefanie haas“'
+      - name: t07
+        label: Credits 07 · Rolle
+        type: string
+        description: 'Ursprünglich: „performers“'
+      - name: t08
+        label: Credits 08 · Name
+        type: text
+        description: 'Ursprünglich: „lia rottschy“'
+      - name: t09
+        label: Credits 09 · Name
+        type: text
+        description: 'Ursprünglich: „sophia kletzmair“'
+      - name: t10
+        label: Credits 10 · Name
+        type: text
+        description: 'Ursprünglich: „rebecca naß“'
+      - name: t11
+        label: Credits 11 · Rolle
+        type: string
+        description: 'Ursprünglich: „documentation“'
+      - name: t12
+        label: Credits 12 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+      - name: t13
+        label: Credits 13 · Name
+        type: text
+        description: 'Ursprünglich: „bahri khalil“'
+      - name: t14
+        label: Credits 14 · Rolle
+        type: string
+        description: 'Ursprünglich: „post production“'
+      - name: t15
+        label: Credits 15 · Name
+        type: text
+        description: 'Ursprünglich: „sami jabeur“'
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+  - name: page_gallery
+    label: Gallery
+    type: file
+    path: content/pages/gallery.json
+    format: json
+    fields:
+    - name: title
+      label: Seitentitel (Browser-Tab und Google)
+      type: string
+    - name: description
+      label: Beschreibung für Google (1 bis 2 Sätze, optional)
+      type: text
+    - name: s2
+      label: Galerie oben (Raster)
+      type: object
+      fields:
+      - name: images
+        label: Bilder
+        type: image
+        options:
+          media: images
+          multiple: true
+          unique: true
+        description: Fotos hier hineinziehen oder hochladen. Reihenfolge durch Ziehen ändern, Foto entfernen über den Papierkorb.
+    - name: s4
+      label: Drei Hintergrundvideos
+      type: object
+      fields:
+      - name: v1
+        label: Hintergrundvideo (läuft ohne Ton in Dauerschleife)
+        type: object
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+      - name: v2
+        label: Hintergrundvideo (läuft ohne Ton in Dauerschleife)
+        type: object
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+      - name: v3
+        label: Hintergrundvideo (läuft ohne Ton in Dauerschleife)
+        type: object
+        fields:
+        - name: video
+          label: Video (MP4)
+          type: file
+          options:
+            media: videos
+            extensions:
+            - mp4
+            - webm
+    - name: s5
+      label: Galerie (alle Fotos)
+      type: object
+      fields:
+      - name: images
+        label: Bilder
+        type: image
+        options:
+          media: images
+          multiple: true
+          unique: true
+        description: Fotos hier hineinziehen oder hochladen. Reihenfolge durch Ziehen ändern, Foto entfernen über den Papierkorb.
+    - name: extra
+      label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
+      type: block
+      blockKey: type
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{type}'
+      blocks:
+      - name: text
+        label: Text / Überschrift
+        component: block_text
+      - name: image
+        label: Bild
+        component: block_image
+      - name: film
+        label: Film / Video
+        component: block_film
+      - name: gallery
+        label: Galerie
+        component: block_gallery
+      - name: credits
+        label: Credits (Rollen und Namen)
+        component: block_credits
+      - name: tiles
+        label: Projekt-Kacheln
+        component: block_tiles
+      - name: spacer
+        label: Abstand
+        component: block_spacer
+      description: Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.
+- name: new_pages
+  label: Neue Seiten
+  type: collection
+  path: content/new-pages
+  format: json
+  filename: '{primary}.json'
+  subfolders: false
+  view:
+    fields:
+    - name
+    - menu
+    primary: name
+    default:
+      sort: name
+      order: asc
+    sort:
+    - name
+  fields:
+  - name: name
+    label: Name der Seite (z. B. MEIN PROJEKT)
+    type: string
+    required: true
+    description: 'Der Name bestimmt auch die Adresse der Seite: „MEIN PROJEKT“ wird zu samijabeur.com/mein-projekt/'
+  - name: description
+    label: Beschreibung für Google (1 bis 2 Sätze, optional)
+    type: text
+  - name: menu
+    label: Im Menü anzeigen
+    type: select
+    options:
+      values:
+      - value: projects
+        label: Unter „projects“
+      - value: main
+        label: Im Hauptmenü
+      - value: none
+        label: Nicht im Menü
+    default: projects
+  - name: menu_label
+    label: Name im Menü (optional, sonst der Seitenname)
+    type: string
+  - name: order
+    label: Reihenfolge im Menü (optional; 1 = zuerst, sonst alphabetisch hinten)
+    type: number
+  - name: blocks
+    label: Inhalt der Seite
+    type: block
+    blockKey: type
+    list:
+      collapsible:
+        collapsed: true
+        summary: '{type}'
+    blocks:
+    - name: text
+      label: Text / Überschrift
+      component: block_text
+    - name: image
+      label: Bild
+      component: block_image
+    - name: film
+      label: Film / Video
+      component: block_film
+    - name: gallery
+      label: Galerie
+      component: block_gallery
+    - name: credits
+      label: Credits (Rollen und Namen)
+      component: block_credits
+    - name: tiles
+      label: Projekt-Kacheln
+      component: block_tiles
+    - name: spacer
+      label: Abstand
+      component: block_spacer
+    description: Baustein für Baustein von oben nach unten. Mit „Hinzufügen“ kommt ein neuer Baustein dazu.
+- name: config
+  label: Menü und Einstellungen
+  type: group
+  items:
+  - name: navigation
+    label: Menü
+    type: file
+    path: content/navigation.json
+    format: json
+    fields:
+    - name: items
+      label: Menüpunkte
+      type: object
+      list:
+        collapsible:
+          collapsed: false
+          summary: '{label}'
+      description: Reihenfolge durch Ziehen ändern. Ein Menüpunkt mit Unterpunkten ist ein Ordner (Link dann leer lassen).
+      fields:
+      - name: label
+        label: Name im Menü
+        type: string
+      - name: link
+        label: Seite (z. B. /about; Startseite = /)
+        type: string
+      - name: children
+        label: Unterpunkte (nur bei Ordnern)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: '{label}'
+        fields:
+        - name: label
+          label: Name im Menü
+          type: string
+        - name: link
+          label: Seite (z. B. /vortex)
+          type: string
+  - name: site
+    label: Website-Einstellungen
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+    - name: site_name
+      label: Name der Website (Logo oben links)
+      type: string
+    - name: title_prefix
+      label: Vorspann der Seitentitel (z. B. „Sami Jabeur“ ergibt „Sami Jabeur | Vortex“)
+      type: string
+    - name: domain
+      label: Domain (z. B. www.samijabeur.com)
+      type: string
+      description: Nur ändern, wenn sich die Adresse der Website ändert. Muss auch in GitHub unter Settings → Pages eingetragen sein.
+    - name: footer
+      label: Fußzeile (unten auf jeder Seite)
+      type: string
+    - name: default_description
+      label: Standard-Beschreibung für Google (wenn eine Seite keine eigene hat)
+      type: text
+    - name: cookie_text
+      label: Cookie-Hinweis (Text; leer lassen = kein Banner)
+      type: text
+    - name: cookie_button
+      label: Cookie-Hinweis (Button)
+      type: string
+    - name: social
+      label: Social-Media-Links (About-Seite)
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{network}'
+      fields:
+      - name: network
+        label: Netzwerk
+        type: select
+        options:
+          values:
+          - value: instagram
+            label: Instagram
+          - value: linkedin
+            label: LinkedIn
+      - name: url
+        label: Adresse (https://…)
+        type: string
+settings:
+  commit:
+    templates:
+      create: 'Neu angelegt: {path}'
+      update: 'Geändert: {path}'
+      delete: 'Gelöscht: {path}'
+      rename: 'Umbenannt: {oldPath} → {newPath}'
