@@ -1,0 +1,13 @@
+{
+  "name": "test",
+  "menu": "projects",
+  "menu_label": "test",
+  "blocks": [
+    {
+      "type": "text",
+      "text": "Tet",
+      "style": "title",
+      "align": "left"
+    }
+  ]
+}
