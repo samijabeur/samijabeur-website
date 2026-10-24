@@ -1,0 +1,46 @@
+{
+ "title": "Sami Jabeur | RAGAVARA",
+ "description": "",
+ "s1": {
+  "f1": {
+   "video": "/media/video/film-ragavara.mp4"
+  },
+  "t01": "RAGAVARA"
+ },
+ "s2": {
+  "images": [
+   "/media/images/be458eff-ragavara-edit-master-00-00-00-00-still013.png",
+   "/media/images/cd204978-ragavara-edit-master-00-00-09-09-still026.png",
+   "/media/images/06827160-ragavara-edit-master-00-00-25-01-still020.png",
+   "/media/images/b3ee88b6-ragavara-edit-master-00-00-21-24-still031.jpg",
+   "/media/images/08ff2b19-ragavara-edit-master-00-00-31-15-still028.png",
+   "/media/images/797f54c0-ragavara-edit-master-00-00-33-18-still023.png",
+   "/media/images/566610fe-ragavara-edit-master-00-00-38-19-still025.png",
+   "/media/images/a7bc69a3-ragavara-edit-master-00-00-41-22-still024.png"
+  ]
+ },
+ "s3": {
+  "t01": "client",
+  "t02": "ragavara",
+  "t03": "models",
+  "t04": "laura schubert",
+  "t05": "naela ahmed",
+  "t06": "emil wendt",
+  "t07": "producer",
+  "t08": "andreas nopp",
+  "t09": "director",
+  "t10": "bahri khalil",
+  "t11": "art direction",
+  "t12": "juliane steiner",
+  "t13": "dop",
+  "t14": "raffaela rädler",
+  "t15": "gaffer",
+  "t16": "sami jabeur",
+  "t17": "post production",
+  "t18": "sami jabeur",
+  "t19": "colorist",
+  "t20": "sami jabeur",
+  "t21": "music",
+  "t22": "jonas bolz"
+ }
+}

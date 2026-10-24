@@ -1,0 +1,146 @@
+{
+ "slug": "gallery",
+ "sections": [
+  {
+   "n": 1,
+   "id": "67a2a2acbbe07445cec0d13e",
+   "kind": "grid",
+   "height": "custom",
+   "valign": "middle",
+   "grid": {
+    "rows_m": 1,
+    "row_gap": 11.0,
+    "col_gap": 11.0,
+    "rows_d": 1
+   },
+   "blocks": []
+  },
+  {
+   "n": 2,
+   "id": "67a2a1a88f11fd27ded2494a",
+   "kind": "gallery",
+   "height": "medium",
+   "valign": "middle",
+   "gallery": {
+    "type": "grid",
+    "gutter": 0,
+    "cols": 4,
+    "width": "full-bleed",
+    "lightbox": true,
+    "ratio": "standard-vertical",
+    "row_height": null
+   },
+   "label": "Galerie"
+  },
+  {
+   "n": 3,
+   "id": "67a2bd6c42c75a35a5981fd1",
+   "kind": "grid",
+   "height": "custom",
+   "valign": "middle",
+   "grid": {
+    "rows_m": 2,
+    "row_gap": 11.0,
+    "col_gap": 11.0,
+    "rows_d": 1
+   },
+   "blocks": []
+  },
+  {
+   "n": 4,
+   "id": "67a2969eab225427b0590ef1",
+   "kind": "grid",
+   "height": "small",
+   "valign": "middle",
+   "pt": "s",
+   "pb": "s",
+   "grid": {
+    "rows_m": 22,
+    "row_gap": 11.0,
+    "col_gap": 11.0,
+    "rows_d": 30
+   },
+   "blocks": [
+    {
+     "id": "yui_3_17_2_1_1738708839750_26178",
+     "m": "1/1/8/11",
+     "zm": 1,
+     "d": "1/14/11/26",
+     "zd": 1,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "bgvideo",
+     "key": "v1"
+    },
+    {
+     "id": "yui_3_17_2_1_1738708839750_23989",
+     "m": "8/1/16/11",
+     "zm": 2,
+     "d": "11/2/21/14",
+     "zd": 2,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "bgvideo",
+     "key": "v2"
+    },
+    {
+     "id": "60337a2c117eb8191e98",
+     "m": "15/1/23/11",
+     "zm": 3,
+     "d": "21/14/31/26",
+     "zd": 3,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "bgvideo",
+     "key": "v3"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "id": "67a2969eab225427b0590ef2",
+   "kind": "gallery",
+   "height": "medium",
+   "valign": "middle",
+   "gallery": {
+    "type": "masonry",
+    "gutter": 20,
+    "cols": 2,
+    "width": "inset",
+    "lightbox": true,
+    "ratio": null,
+    "row_height": null
+   },
+   "label": "Galerie"
+  },
+  {
+   "n": 6,
+   "id": "663cb748c9092760a88a6d4e",
+   "kind": "grid",
+   "height": "custom",
+   "valign": "middle",
+   "grid": {
+    "rows_m": 2,
+    "row_gap": 0.0,
+    "col_gap": 0.0,
+    "rows_d": 3
+   },
+   "footer": true,
+   "blocks": [
+    {
+     "id": "6c32eafa1dd67395feb2",
+     "m": "2/2/3/10",
+     "zm": 2,
+     "d": "2/10/3/18",
+     "zd": 2,
+     "jc_m": "flex-start",
+     "jc_d": "center",
+     "type": "footer",
+     "small": true,
+     "tag": "p",
+     "align": "center"
+    }
+   ]
+  }
+ ]
+}

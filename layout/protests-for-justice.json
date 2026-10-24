@@ -1,0 +1,109 @@
+{
+ "slug": "protests-for-justice",
+ "sections": [
+  {
+   "n": 1,
+   "id": "6790152039ba51574b85c750",
+   "kind": "grid",
+   "height": "custom",
+   "valign": "middle",
+   "intro": true,
+   "grid": {
+    "rows_m": 16,
+    "row_gap": 11.0,
+    "col_gap": 11.0,
+    "rows_d": 9
+   },
+   "blocks": [
+    {
+     "id": "yui_3_17_2_1_1737494916568_12703",
+     "m": "4/2/6/10",
+     "zm": 2,
+     "d": "2/10/4/20",
+     "zd": 2,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "text",
+     "tag": "h3",
+     "small": false,
+     "align": null,
+     "key": "t01"
+    },
+    {
+     "id": "yui_3_17_2_1_1737494916568_9831",
+     "m": "6/2/14/10",
+     "zm": 1,
+     "d": "4/6/8/22",
+     "zd": 1,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "text",
+     "tag": "h1",
+     "small": false,
+     "align": "center",
+     "key": "t02"
+    },
+    {
+     "id": "yui_3_17_2_1_1737494916568_18701",
+     "m": "14/2/17/10",
+     "zm": 3,
+     "d": "8/8/10/20",
+     "zd": 3,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "text",
+     "tag": "h1",
+     "small": false,
+     "align": null,
+     "key": "t03"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "id": "6794dcd8346d5d304424e752",
+   "kind": "gallery",
+   "height": "medium",
+   "valign": "middle",
+   "gallery": {
+    "type": "grid",
+    "gutter": 35,
+    "cols": 3,
+    "width": "full",
+    "lightbox": true,
+    "ratio": "four-three",
+    "row_height": null
+   },
+   "label": "Galerie"
+  },
+  {
+   "n": 3,
+   "id": "663cb748c9092760a88a6d4e",
+   "kind": "grid",
+   "height": "custom",
+   "valign": "middle",
+   "grid": {
+    "rows_m": 2,
+    "row_gap": 0.0,
+    "col_gap": 0.0,
+    "rows_d": 3
+   },
+   "footer": true,
+   "blocks": [
+    {
+     "id": "6c32eafa1dd67395feb2",
+     "m": "2/2/3/10",
+     "zm": 2,
+     "d": "2/10/3/18",
+     "zd": 2,
+     "jc_m": "flex-start",
+     "jc_d": "center",
+     "type": "footer",
+     "small": true,
+     "tag": "p",
+     "align": "center"
+    }
+   ]
+  }
+ ]
+}

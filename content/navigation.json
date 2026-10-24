@@ -1,0 +1,45 @@
+{
+ "items": [
+  {
+   "label": "about",
+   "link": "/about"
+  },
+  {
+   "label": "projects",
+   "children": [
+    {
+     "label": "becoming",
+     "link": "/becoming"
+    },
+    {
+     "label": "ragavara",
+     "link": "/ragavara"
+    },
+    {
+     "label": "eunoia",
+     "link": "/eunoia"
+    },
+    {
+     "label": "letzter anruf",
+     "link": "/letzter-anruf"
+    },
+    {
+     "label": "protests for justice",
+     "link": "/protests-for-justice"
+    },
+    {
+     "label": "vortex",
+     "link": "/vortex"
+    }
+   ]
+  },
+  {
+   "label": "gallery",
+   "link": "/gallery"
+  },
+  {
+   "label": "home",
+   "link": "/"
+  }
+ ]
+}

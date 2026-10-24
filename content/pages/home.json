@@ -1,0 +1,56 @@
+{
+ "title": "Sami Jabeur | Filmmaker and Photographer",
+ "description": "hey, i’m sami and i am a filmmaker / photographer based in austria. through my work and passion i aim to capture authentic moments and craft compelling stories.",
+ "s1": {
+  "bg": {
+   "image": "/media/images/c1cbe894-wallpaper-man-on-a-motorbike-looks-into-the-distan.jpg",
+   "focal": "0.6718670076726343,0.9840615038439903"
+  }
+ },
+ "s3": {
+  "i1": {
+   "image": "/media/images/7f01f4ba-arbeitsprobe1-filmstill03.jpg",
+   "focal": "0.4707927921598932,0.36002250140633785"
+  },
+  "i2": {
+   "image": "/media/images/2bec991b-still-2025-04-17-094557-1-20-2.jpg",
+   "focal": "0.6530095630976936,0.3600450056257032"
+  },
+  "i3": {
+   "image": "/media/images/4e6f2a6b-dsc03780.jpg"
+  },
+  "t01": {
+   "text": "BECOMING",
+   "link": "/becoming"
+  },
+  "t02": {
+   "text": "EUNOIA",
+   "link": "/eunoia"
+  },
+  "t03": {
+   "text": "RAGAVARA",
+   "link": "/ragavara"
+  },
+  "t04": {
+   "text": "LETZTER ANRUF",
+   "link": "/letzter-anruf"
+  },
+  "t05": {
+   "text": "PROTESTS FOR JUSTICE",
+   "link": "/protests-for-justice"
+  },
+  "t06": {
+   "text": "VORTEX",
+   "link": "/vortex"
+  },
+  "v1": {
+   "video": "/media/video/bg-970c33b6-0c32-4110-bb3a-46fdc79ef09a.mp4"
+  },
+  "v2": {
+   "video": "/media/video/bg-478dde48-59b3-4176-9fd2-7c81bd550f91.mp4"
+  },
+  "v3": {
+   "video": "/media/video/bg-5482e2b9-30b6-44b7-9824-a1838f852bdd.mp4"
+  }
+ }
+}

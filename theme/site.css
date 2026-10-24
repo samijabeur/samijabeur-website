@@ -1,0 +1,408 @@
+/* ==========================================================================
+   sami jabeur – site.css
+   Eigenes, aufgeräumtes Stylesheet (ersetzt Squarespace-CSS + Custom-CSS).
+   Aufbau: 1 Tokens · 2 Basis · 3 Header & Menü · 4 Sektionen & Raster
+           5 Typografie · 6 Medien · 7 Projekt-Kacheln · 8 Galerien
+           9 Lightbox · 10 Cookie-Banner · 11 Animationen
+           12 Flexible Bausteine (neue Seiten und „Weitere Inhalte“ aus dem CMS)
+   ========================================================================== */
+
+/* ---------- 1  Tokens ---------------------------------------------------- */
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("../fonts/oswald-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("../fonts/oswald-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --black: #000;
+  --yellow: #faf55a;
+  --yellow-soft: #f2ea57;       /* Untermenü + Handy-Menü */
+  --ink: #fafafa;               /* Lightbox-Symbole, Cookie-Text */
+  --overlay: #1c1c1c;           /* Handy-Menü + Lightbox-Hintergrund */
+  --font: "Oswald", sans-serif;
+
+  --maxw: 1200px;               /* maximale Inhaltsbreite */
+  --gutter: 6vw;                /* seitlicher Rand: Handy … */
+  --pad-xs: 2vw;                /* vertikale Sektionsabstände */
+  --pad-s: calc(3.3 * max(1vw, 1vh));   /* richtet sich nach der längeren Bildschirmseite */
+  --pad-m: calc(6.6 * max(1vw, 1vh));
+  --pad-l: calc(13.2 * max(1vw, 1vh));
+
+  /* Schriftgrößen – Handy */
+  /* auf dem Handy richtet sich die Schrift nach der Bildschirmhöhe (wie im Original) */
+  --fs-h1: min(24.8px, calc(14px + 1.2vh));   --fs-h2: min(34.52px, calc(14px + 2.28vh));
+  --fs-h3: min(36.68px, calc(14px + 2.52vh)); --fs-h4: min(15.08px, calc(14px + 0.12vh));
+  --fs-small: 10px;
+
+  --bar-h: 37px;                              /* Höhe der Kopfleiste (ohne Rand) */
+  --header-h: calc(12vw + var(--bar-h));      /* Gesamthöhe des fixen Headers */
+}
+@media (min-width: 768px) and (max-width: 799px) { :root { --bar-h: calc(41.64px + (100vw - 768px) * 0.0345); } }
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2vw;
+    --fs-h1: min(28.4px, calc(14px + 1.2vw));
+    --fs-h2: min(41.36px, calc(14px + 2.28vw));
+    --fs-h3: min(44.24px, calc(14px + 2.52vw));
+    --fs-h4: min(15.44px, calc(14px + 0.12vw));
+    --fs-small: min(16.88px, calc(14px + 0.24vw));
+  }
+}
+@media (min-width: 800px) {
+  :root { --bar-h: min(67px, calc(19px + 4.2vw)); --header-h: calc(var(--bar-h) + 0.2vw); }
+}
+
+/* ---------- 2  Basis ----------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--yellow);
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main { flex: 1 0 auto; }
+a { color: inherit; text-decoration: none; }
+img, video { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+body.is-locked { overflow: hidden; }
+
+/* ---------- 3  Header & Menü --------------------------------------------- */
+.site-header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  z-index: 9999;
+  animation: header-in 0.7s ease 0.2s both;
+}
+.site-header__inner {
+  margin: 0 var(--gutter);
+  padding: 6vw 0;
+  height: var(--header-h);
+  position: relative; z-index: 3;
+  display: flex; align-items: center; justify-content: space-between;
+}
+/* Handy/Tablet: Kopfleiste wird nach dem Scrollen schmaler (wie im Original) */
+@media (max-width: 799px) {
+  .is-scrolled .site-header__inner { padding: 16.9px 0; height: calc(var(--bar-h) + 33.8px); }
+}
+.site-title {
+  font-size: 20px; line-height: 20px; font-weight: 500; letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.site-nav { display: none; }
+
+.menu-toggle {
+  position: relative; z-index: 3; width: 47px; height: 37px;
+}
+.menu-toggle span {
+  position: absolute; left: 6px; width: 35px; height: 1px; background: var(--yellow);
+  transition: transform 0.25s ease, top 0.25s ease;
+}
+.menu-toggle span:nth-child(1) { top: 12.5px; }
+.menu-toggle span:nth-child(2) { top: 23.5px; }
+.menu-open .menu-toggle span { left: 9.5px; width: 28px; }
+.menu-open .menu-toggle span:nth-child(1) { top: 18px; transform: rotate(45deg); }
+.menu-open .menu-toggle span:nth-child(2) { top: 18px; transform: rotate(-45deg); }
+
+/* Handy-Menü (Vollbild) */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 2;
+  background: var(--overlay);
+  padding: var(--header-h) 0 0 7vw;
+  display: flex; flex-direction: column; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.menu-open .mobile-menu { opacity: 1; visibility: visible; transition-delay: 0s; }
+.mobile-menu__panel { display: none; flex-direction: column; align-items: flex-start; }
+.mobile-menu__panel.is-active { display: flex; }
+.mobile-menu__item {
+  margin-top: calc(min(55.7px, 4.51vh + 15.4px) - 1em);
+  display: flex; align-items: center;
+  font-size: 8.5vw; line-height: 1; font-weight: 500; letter-spacing: 0.5568px;
+  color: var(--yellow-soft); text-align: left;
+}
+.mobile-menu__item svg { width: 1em; height: 1em; margin-left: 0.15em; fill: none; stroke: currentColor; stroke-width: 0.6; opacity: 0.7; }
+.mobile-menu__back svg { margin: 0 0.15em 0 0; transform: scaleX(-1); }
+.mobile-menu__back { position: relative; top: -12.9px; }   /* sitzt im Original über der Liste */
+@media (min-width: 576px) { .mobile-menu__item { font-size: 6.6vw; } }
+@media (min-width: 768px) {
+  .mobile-menu__item { font-size: min(6vw, 6vh); margin-top: calc(2.9vw + 28.5px - 1em); letter-spacing: calc(0.168px + 0.0432vw); }
+}
+
+@media (min-width: 800px) {
+  .site-header__inner { padding: 0.1vw 0; margin: 0 2vw; }
+  .site-title { font-size: min(24.08px, calc(14px + 0.84vw)); line-height: 1; }
+  .menu-toggle, .mobile-menu { display: none; }
+  .site-nav { display: block; padding-right: 30px; align-self: flex-end; }
+  .site-nav > ul { display: flex; align-items: center; gap: 2.8vw; list-style: none; margin: 0; padding: 0; }
+  .site-nav li { position: relative; }
+  .site-nav a, .site-nav button {
+    display: block; padding: 12px 0; font-size: 20px; line-height: 20px; font-weight: 500;
+    letter-spacing: normal; white-space: nowrap;
+  }
+  .site-nav .has-sub { margin: 0 15px; }
+  .site-nav .sub {
+    position: absolute; top: 100%; right: -28.4px;
+    margin: 0.5px 0 0; padding: 14.2px 28.4px; list-style: none;
+    opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    text-align: right;
+  }
+  .site-nav .sub a { color: var(--yellow-soft); padding: 12px 0; }
+  .site-nav .has-sub:hover .sub,
+  .site-nav .has-sub:focus-within .sub,
+  .site-nav .has-sub.is-open .sub { opacity: 1; visibility: visible; transition-delay: 0s; }
+  /* Startseite: Menüpunkte werden beim Überfahren schwarz (heller Hero) */
+  .homepage .site-nav > ul > li:not(.has-sub) > a:hover { color: var(--black); }
+}
+
+/* ---------- 4  Sektionen & Raster ---------------------------------------- */
+.section {
+  position: relative;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  padding: var(--pt, 0) 0 var(--pb, 0);
+}
+.section--first  { padding-top: calc(var(--pt, 0px) + var(--header-h)); }   /* Platz unter dem fixen Header */
+.section--small  { min-height: 33vh; }
+.section--medium { min-height: 66vh; }
+.section--top    { justify-content: flex-start; }
+.section--middle { justify-content: center; }
+.section--bottom { justify-content: flex-end; }
+
+/* Fluid-Raster: 8 Spalten (Handy) / 24 Spalten (ab 768 px), wie im Original */
+.grid {
+  --cols: 8;
+  --edge: calc(var(--gutter) - var(--cg));
+  --cell: calc((var(--maxw) - var(--cg) * (var(--cols) - 1)) / var(--cols));
+  display: grid; position: relative; width: 100%;
+  column-gap: var(--cg); row-gap: var(--rg);
+  grid-template-rows: repeat(var(--rows-m), minmax(24px, auto));
+  grid-template-columns: minmax(var(--edge), 1fr) repeat(var(--cols), minmax(0, var(--cell))) minmax(var(--edge), 1fr);
+  overflow-x: clip;
+  --content-w: calc(100vw - 12vw);
+}
+.cell {
+  grid-area: var(--m); z-index: var(--zm, auto);
+  position: relative; min-width: 0;
+  display: flex; flex-direction: column; justify-content: var(--jm, flex-start);
+}
+@media (min-width: 768px) {
+  .grid {
+    --cols: 24;
+    --row-h: calc(min(var(--maxw), 100vw - 4vw) * 0.0215);
+    grid-template-rows: repeat(var(--rows-d), minmax(var(--row-h), auto));
+    --content-w: min(var(--maxw), calc(100vw - 4vw));
+  }
+  .cell { grid-area: var(--d); z-index: var(--zd, auto); justify-content: var(--jd, flex-start); }
+}
+
+/* Hero der Startseite: Vollbild-Banner, bleibt beim Scrollen stehen */
+.section--hero {
+  position: sticky; top: 0; height: 100vh; min-height: 0; overflow: hidden; padding: 0;
+}
+.section--hero .section__bg { position: absolute; inset: 0; }
+.section--hero .section__bg img { width: 100%; height: 100%; object-fit: cover; }
+.section--hero .section__bg::after { content: ''; position: absolute; inset: 0; background: #000; opacity: 0.22; }   /* abdunkelnde Folie wie im Original */
+.section--hero .grid { visibility: hidden; }
+
+/* Kurze Texteinleitungen (Über mich, Protests): Handy-Abstände */
+@media (max-width: 768px) {
+  .section.section--intro { padding: calc(var(--pt, 0px) + 10px) 15px calc(var(--pb, 0px) + 10px); text-align: center; }
+  .ta-left-m { text-align: left !important; }
+}
+
+/* ---------- 5  Typografie ------------------------------------------------ */
+.cell :is(h1, h2, h3, h4, p) {
+  margin: 0; font-weight: 500; text-transform: none; white-space: pre-wrap; overflow-wrap: break-word;
+}
+.cell h1 { font-size: var(--fs-h1); line-height: 1.44;  letter-spacing: 0.05em; }
+.cell h2 { font-size: var(--fs-h2); line-height: 1.386; letter-spacing: 0.05em; }
+.cell h3 { font-size: var(--fs-h3); line-height: 1.374; letter-spacing: 0.05em; }
+.cell h4 { font-size: var(--fs-h4); line-height: 1.494; letter-spacing: 0.05em; }
+.cell p.small { font-size: var(--fs-small); line-height: 1.2; font-weight: 300; letter-spacing: normal; }
+.ta-left { text-align: left; } .ta-right { text-align: right; }
+.ta-center { text-align: center; } .ta-justify { text-align: justify; }
+
+/* Projektseiten: großer Titel füllt seine Zelle (6 von 24 bzw. 8 Spalten) – ersetzt das JS-Fit von Squarespace */
+.fit h3 {
+  line-height: 1; white-space: nowrap;
+  font-size: calc((var(--content-w) * 0.75 - 2.75px) * var(--fit));
+}
+@media (min-width: 768px) { .fit h3 { font-size: calc((var(--content-w) * 0.25 - 8.25px) * var(--fit)); } }
+
+/* Besetzungslisten: kleinere Schrift auf dem Handy */
+@media (max-width: 768px) {
+  .credits p { font-size: 14px; line-height: 1.6; }
+  .credits h1 { font-size: var(--credits-h1, 20px); }
+  .credits h3 { font-size: 18px; }
+}
+
+/* Fußzeile */
+.cell.footer-text p { color: var(--yellow); }
+@media (max-width: 768px) {
+  .cell.footer-text p.small { font-size: 10px; line-height: 1.4; }
+}
+
+/* Social-Icons (Über mich) */
+.cell.social { flex-direction: row; gap: 10px; align-items: center; justify-content: flex-start; }
+.social a { display: block; width: 16px; height: 16px; opacity: 0; animation: fade-in 1s ease-in-out forwards; }
+.social svg { width: 32px; height: 32px; margin: -8px; fill: var(--yellow); }
+
+/* ---------- 6  Medien ---------------------------------------------------- */
+.cell--media { overflow: hidden; }
+.cell--media > img,
+.cell--media > video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+/* Hintergrundvideos behalten 16:9 – ist die Zelle zu niedrig, wachsen die Rasterzeilen wie im Original */
+.cell--bgvideo::before { content: ""; display: block; padding-top: 56.25%; }
+.cell--film { background: #000; }
+/* Platzhalter-Höhe wie beim Original-Player: Seitenverhältnis des Films bestimmt die Zeilenhöhe */
+.cell--film::before { content: ""; display: block; padding-top: var(--film-pad, 56.25%); }
+.cell--film > video { object-fit: contain; background: #000; }
+
+/* ---------- 7  Projekt-Kacheln (Startseite) ------------------------------ */
+/* Ein einziger wiederverwendbarer Baustein statt je einer Regel pro Projekt:
+   Titel als Kontur, beim Überfahren gefüllt; die ganze Kachel ist anklickbar. */
+.tile h1 {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.5px var(--yellow);
+}
+.tile:hover h1 { -webkit-text-fill-color: var(--yellow); }
+.tile a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+
+/* ---------- 8  Galerien -------------------------------------------------- */
+.gal { --cols-n: 2; width: 100%; }
+.gal--full, .gal--inset { padding: var(--gutter); }
+.gal--inset .gal__wrap { max-width: var(--maxw); margin-inline: auto; }
+.gal__wrap { position: relative; width: 100%; }
+.gal__item { margin: 0; position: relative; overflow: hidden; }
+.gal__item a { display: block; cursor: zoom-in; }
+.gal__item img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gal__item.is-static a { cursor: default; }
+
+/* Raster (Protests, Galerie oben): feste Seitenverhältnisse */
+.gal--grid .gal__wrap {
+  display: grid; gap: calc(var(--g) * 0.05vw);
+  grid-template-columns: repeat(2, 1fr);
+}
+/* Squarespace rundet die Zeilenhöhe auf: Seitenverhältnis plus 1 px */
+.gal--grid .gal__item { height: 0; padding-top: calc(100% / (var(--ar)) + 1px); }
+.gal--grid .gal__item a, .gal--grid .gal__item > img { position: absolute; inset: 0; }
+@media (min-width: 800px)  { .gal--grid .gal__wrap { grid-template-columns: repeat(min(var(--cols), 3), 1fr); } }
+@media (min-width: 1000px) { .gal--grid .gal__wrap { grid-template-columns: repeat(var(--cols), 1fr); } }
+
+/* Masonry (ohne JS: CSS-Spalten; mit JS: exakt wie bei Squarespace positioniert) */
+.gal--masonry .gal__wrap { column-count: 2; column-gap: calc(var(--g) * 0.05vw); }
+.gal--masonry .gal__item { break-inside: avoid; margin-bottom: calc(var(--g) * 0.05vw); }
+.gal--masonry .gal__item img { height: auto; }
+@media (min-width: 800px)  { .gal--masonry .gal__wrap { column-count: min(var(--cols), 3); } }
+@media (min-width: 1000px) { .gal--masonry .gal__wrap { column-count: var(--cols); } }
+.js .gal--masonry .gal__wrap { column-count: auto; }
+.js .gal--masonry .gal__item { position: absolute; margin: 0; width: var(--w, 50%); transform: translate3d(var(--x, 0), var(--y, 0), 0); }
+.js .gal--masonry .gal__item { height: var(--h, auto); }
+.js .gal--masonry .gal__item img { height: 100%; object-fit: cover; }
+.js .gal--masonry.is-ready .gal__item { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease; }
+
+/* Strips: ein Bild pro Zeile (Tablet/Handy), ab 1000 px Zeilen mit gleicher Höhe */
+.gal--strips .gal__wrap { display: flex; flex-direction: column; gap: 20px; }
+.gal--strips .gal__item { aspect-ratio: var(--ar); }
+.js .gal--strips .gal__item { height: var(--h); aspect-ratio: auto; }
+@media (max-width: 439px) { .gal--strips { padding-top: 20px; } }
+@media (min-width: 1000px) {
+  .gal--strips .gal__wrap { flex-direction: row; flex-wrap: wrap; }
+  .gal--strips .gal__item { width: calc(50% - 10px); }
+  .js .gal--strips .gal__item { width: var(--w); }
+}
+
+/* ---------- 9  Lightbox -------------------------------------------------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 10000;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.lightbox.is-open { opacity: 1; visibility: visible; transition-delay: 0s; }
+.lightbox__bg { position: absolute; inset: 0; background: var(--overlay); opacity: 0.9; }
+.lightbox__close {
+  position: absolute; top: 21.6px; right: 21.6px; width: 32px; height: 22px; z-index: 2; color: var(--ink);
+}
+.lightbox__close svg { position: absolute; top: 1px; left: 6px; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1; }
+.lightbox__stage {
+  position: absolute; inset: 7vh 3vw; display: flex; align-items: center; justify-content: center;
+}
+.lightbox__stage img {
+  max-width: calc(100% - 112px); max-height: 100%; width: auto; height: auto; object-fit: contain;
+  transition: opacity 0.25s ease;
+}
+.lightbox__nav {
+  position: absolute; top: 50%; width: 13px; height: 24px; margin-top: -12px; color: var(--ink); z-index: 2;
+}
+.lightbox__nav svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1; stroke-miterlimit: 10; }
+.lightbox__nav--prev { left: 3vw; } .lightbox__nav--next { right: 3vw; }
+.lightbox__nav[hidden] { display: none; }
+@media (max-width: 767px) {
+  .lightbox__stage { inset: 7vh 0; }
+  .lightbox__stage img { max-width: calc(100% - 64px); }
+  .lightbox__nav--prev { left: 12px; } .lightbox__nav--next { right: 12px; }
+}
+
+/* ---------- 10  Cookie-Banner -------------------------------------------- */
+.cookie-banner {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 300000;
+  background: var(--black); color: var(--yellow);
+  padding: 14px 20px;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;
+  font-size: 12px; font-weight: 300;
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-banner p {
+  margin: 0 0 20px; color: var(--ink); font-size: 12px; line-height: 1.5; font-weight: 500; letter-spacing: 0.05em;
+}
+.cookie-banner button {
+  background: #dcdcdc; color: #000; border-radius: 300px; padding: 11px 15px;
+  font-size: 12px; line-height: 17px; font-weight: 600; letter-spacing: 0.05em;
+}
+@media (min-width: 768px) {
+  .cookie-banner { flex-direction: row; align-items: center; }
+  .cookie-banner p { margin: 0 20px 0 0; font-size: min(11.2px, calc(14px - 0.24vw)); line-height: 1.5; }
+}
+
+/* ---------- 11  Animationen ---------------------------------------------- */
+@keyframes header-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-in   { from { opacity: 0; } to { opacity: 1; } }
+/* Inhalte blenden beim Scrollen ein (nur mit JS; ohne JS ist alles sichtbar) */
+.js .reveal { opacity: 0; transition: opacity 0.8s ease; }
+.js .reveal.is-in { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .site-header, .social a { animation: none; opacity: 1; }
+  .js .reveal { opacity: 1; transition: none; }
+}
+
+/* ---------- 12  Flexible Bausteine --------------------------------------- */
+/* Bilder, Filme und Kacheln, die ihre Höhe aus einem Seitenverhältnis (--ratio) bekommen */
+.cell--ratio::before { content: ""; display: block; padding-top: var(--ratio, 56.25%); }
+.flex--tiles .tile h1 { text-align: center; }

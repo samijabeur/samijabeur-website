@@ -1,0 +1,131 @@
+{
+ "slug": "about",
+ "sections": [
+  {
+   "n": 1,
+   "id": "679544fb485f79119ba81bbe",
+   "kind": "grid",
+   "height": "medium",
+   "valign": "middle",
+   "pt": "m",
+   "pb": "m",
+   "intro": true,
+   "grid": {
+    "rows_m": 31,
+    "row_gap": 11.0,
+    "col_gap": 4.0,
+    "rows_d": 16
+   },
+   "blocks": [
+    {
+     "id": "yui_3_17_2_1_1737813256167_4583",
+     "m": "3/1/8/11",
+     "zm": 1,
+     "d": "1/2/3/26",
+     "zd": 1,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "text",
+     "tag": "h2",
+     "small": false,
+     "align": null,
+     "key": "t01",
+     "left_m": true
+    },
+    {
+     "id": "yui_3_17_2_1_1737813256167_11324",
+     "m": "8/1/20/11",
+     "zm": 3,
+     "d": "4/17/14/26",
+     "zd": 3,
+     "jc_m": "center",
+     "jc_d": "center",
+     "type": "image",
+     "key": "i1"
+    },
+    {
+     "id": "532d22d69fabdacbd87e",
+     "m": "21/1/32/10",
+     "zm": 3,
+     "d": "4/2/10/16",
+     "zd": 3,
+     "jc_m": "flex-start",
+     "jc_d": "flex-start",
+     "type": "text",
+     "tag": "h1",
+     "small": false,
+     "align": null,
+     "key": "t02",
+     "left_m": true
+    },
+    {
+     "id": "yui_3_17_2_1_1737813256167_24749",
+     "m": "31/1/32/7",
+     "zm": 5,
+     "d": "10/2/11/7",
+     "zd": 5,
+     "jc_m": "center",
+     "jc_d": "flex-start",
+     "type": "text",
+     "tag": "h4",
+     "small": false,
+     "align": null,
+     "key": "t03"
+    },
+    {
+     "id": "yui_3_17_2_1_1737813256167_22632",
+     "m": "31/9/32/11",
+     "zm": 4,
+     "d": "10/7/11/10",
+     "zd": 4,
+     "jc_m": "center",
+     "jc_d": "center",
+     "type": "social"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "id": "67a2e27f5340cd142a7af6c7",
+   "kind": "grid",
+   "height": "custom",
+   "valign": "middle",
+   "grid": {
+    "rows_m": 2,
+    "row_gap": 11.0,
+    "col_gap": 11.0,
+    "rows_d": 7
+   },
+   "blocks": []
+  },
+  {
+   "n": 3,
+   "id": "663cb748c9092760a88a6d4e",
+   "kind": "grid",
+   "height": "custom",
+   "valign": "middle",
+   "grid": {
+    "rows_m": 2,
+    "row_gap": 0.0,
+    "col_gap": 0.0,
+    "rows_d": 3
+   },
+   "footer": true,
+   "blocks": [
+    {
+     "id": "6c32eafa1dd67395feb2",
+     "m": "2/2/3/10",
+     "zm": 2,
+     "d": "2/10/3/18",
+     "zd": 2,
+     "jc_m": "flex-start",
+     "jc_d": "center",
+     "type": "footer",
+     "small": true,
+     "tag": "p",
+     "align": "center"
+    }
+   ]
+  }
+ ]
+}

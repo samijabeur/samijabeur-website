@@ -1,0 +1,19 @@
+{
+ "site_name": "sami jabeur",
+ "title_prefix": "Sami Jabeur",
+ "domain": "www.samijabeur.com",
+ "footer": "© sami jabeur",
+ "default_description": "hey, i’m sami and i am a filmmaker / photographer based in austria. through my work and passion i aim to capture authentic moments and craft compelling stories.",
+ "cookie_text": "Durch die Nutzung dieser Website erklärst du dich mit unserer Verwendung von Cookies einverstanden. Wir verwenden Cookies, um dir ein tolles Erlebnis zu bieten und unsere Website wirksam zu betreiben.",
+ "cookie_button": "Annehmen",
+ "social": [
+  {
+   "network": "instagram",
+   "url": "https://www.instagram.com/sami.jbr"
+  },
+  {
+   "network": "linkedin",
+   "url": "https://www.linkedin.com/in/samijabeur/"
+  }
+ ]
+}
