@@ -52,13 +52,5 @@
       "text": "VORTEX",
       "link": "/vortex"
     }
-  },
-  "new_tiles": [
-    {
-      "title": "test2",
-      "link": "/test2",
-      "image": "/media/images/0535eea4-dscf4667.jpg",
-      "place": "right"
-    }
-  ]
+  }
 }
