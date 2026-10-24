@@ -205,7 +205,14 @@
      "tile": true,
      "link": true
     }
-   ]
+   ],
+   "tile_slots": {
+    "start": {
+     "left": 75,
+     "right": 56
+    },
+    "rows": 15
+   }
   },
   {
    "n": 4,

@@ -223,7 +223,7 @@ class Builder:
         return ('<section class="section"><div class="gal gal--%s %s"%s style="%s"><div class="gal__wrap">%s</div></div></section>'
                 % (t, wcls, attrs, ';'.join(st), out))
 
-    def render_section(self, R, sec, c, first):
+    def render_section(self, R, sec, c, first, new_tiles=None):
         if sec['kind'] == 'gallery':
             return self.render_gallery(R, (c or {}).get('images', []), sec['gallery'])
         cls = ['section', 'section--' + sec['height'], 'section--' + sec['valign']]
@@ -241,8 +241,24 @@ class Builder:
             bg = '<div class="section__bg">%s</div>' % self.img_tag(R, b.get('image'), '100vw', b.get('alt', ''),
                                                                     self.focal(b.get('focal') or '0.5,0.5'), eager=True)
         g = sec['grid']
-        gst = ['--rows-m:%d' % g['rows_m'], '--rows-d:%d' % g['rows_d'], '--rg:%gpx' % g['row_gap'], '--cg:%gpx' % g['col_gap']]
+        rows_m, rows_d = g['rows_m'], g['rows_d']
         cells = ''.join(self.render_block(R, b, (c or {}).get(b.get('key'))) for b in sec['blocks'])
+        slots = sec.get('tile_slots')
+        if slots and new_tiles:
+            # Neue Kacheln: am Rechner unter der gewählten Spalte (gleicher Abstand wie bei den anderen),
+            # am Handy der Reihe nach unter allen bisherigen Kacheln.
+            nxt = dict(slots['start'])
+            span = slots['rows']
+            for it in new_tiles:
+                if not isinstance(it, dict) or not (it.get('title') or it.get('image') or it.get('video')): continue
+                side = 'right' if it.get('place') == 'right' else 'left'
+                r = nxt[side]
+                nxt[side] = r + span
+                rows_d = max(rows_d, r + span - 1)
+                c1, c2 = (14, 27) if side == 'right' else (1, 14)
+                rows_m += 1
+                cells += self.tile_cells(R, it, '%d/2/%d/10' % (rows_m, rows_m + 1), '%d/%d/%d/%d' % (r, c1, r + span, c2), cls='cell--slot')
+        gst = ['--rows-m:%d' % rows_m, '--rows-d:%d' % rows_d, '--rg:%gpx' % g['row_gap'], '--cg:%gpx' % g['col_gap']]
         return '<section class="%s"%s>%s<div class="grid" style="%s">%s</div></section>' % (
             ' '.join(cls), (' style="%s"' % ';'.join(st)) if st else '', bg, ';'.join(gst), cells)
 
@@ -336,6 +352,19 @@ class Builder:
         h = SPACER.get(b.get('height') or 'medium', SPACER['medium'])
         return '<section class="section%s flex" style="padding-top:%s" aria-hidden="true"></section>' % (' section--first' if first else '', h)
 
+    def tile_cells(self, R, it, area_m, area_d, cls='cell--ratio'):
+        """Bild- oder Videozelle plus Titelzelle (Titel als Kontur, Link auf die Seite) für eine Projekt-Kachel."""
+        media = self.video_tag(R, it.get('video'), 'loop') if it.get('video') else ''
+        if not media and it.get('image'):
+            media = self.img_tag(R, it['image'], '(min-width: 768px) 50vw, 100vw', it.get('alt', ''))
+        out = ('<div class="cell cell--media %s" style="--m:%s;--d:%s;--zm:1;--zd:1;--ratio:56.25%%">%s</div>'
+               % (cls, area_m, area_d, media))
+        if it.get('title'):
+            href = self.link_href(R, it.get('link')) or '#'
+            out += ('<div class="cell tile" style="--m:%s;--d:%s;--zm:2;--zd:2;--jm:center;--jd:center">'
+                    '<h1 class="ta-center"><a href="%s">%s</a></h1></div>') % (area_m, area_d, esc(href), esc(it['title']))
+        return out
+
     def flex_tiles(self, R, b, first):
         items = [i for i in (b.get('items') or []) if i.get('title') or i.get('image') or i.get('video')]
         if not items: return ''
@@ -345,17 +374,7 @@ class Builder:
             r = i // 2 + 1
             left = i % 2 == 0
             c1, c2 = (1, 14) if left else (14, 27)
-            area_m = '%d/1/%d/11' % (i + 1, i + 2)
-            area_d = '%d/%d/%d/%d' % (r, c1, r + 1, c2)
-            media = self.video_tag(R, it.get('video'), 'loop') if it.get('video') else ''
-            if not media and it.get('image'):
-                media = self.img_tag(R, it['image'], '(min-width: 768px) 50vw, 100vw', it.get('alt', ''))
-            cells += ('<div class="cell cell--media cell--ratio" style="--m:%s;--d:%s;--zm:1;--zd:1;--ratio:56.25%%">%s</div>'
-                      % (area_m, area_d, media))
-            if it.get('title'):
-                href = self.link_href(R, it.get('link')) or '#'
-                cells += ('<div class="cell tile" style="--m:%s;--d:%s;--zm:2;--zd:2;--jm:center;--jd:center">'
-                          '<h1 class="ta-center"><a href="%s">%s</a></h1></div>') % (area_m, area_d, esc(href), esc(it['title']))
+            cells += self.tile_cells(R, it, '%d/1/%d/11' % (i + 1, i + 2), '%d/%d/%d/%d' % (r, c1, r + 1, c2))
         return self.flex_section(cells, rows_m=n, rows_d=math.ceil(n / 2), rg=11, cg=11, cls='flex--tiles', first=first)
 
     # ------------------------------------------------------------------ Seitengerüst
@@ -497,7 +516,7 @@ class Builder:
                 if sec.get('footer'):
                     footer += self.render_section(R, sec, c, False)
                     continue
-                body += self.render_section(R, sec, c, i == 0)
+                body += self.render_section(R, sec, c, i == 0, C.get('new_tiles') if sec.get('tile_slots') else None)
             body += self.render_flex(R, C.get('extra'))
             body += footer
             has_social = any(b['type'] == 'social' for s in secs for b in s.get('blocks', []))

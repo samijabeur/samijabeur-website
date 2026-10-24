@@ -212,6 +212,14 @@ def page_entry(slug):
         if not fs: continue
         label = SEC_LABELS.get((slug, sec['n'])) or ('Galerie' if sec['kind'] == 'gallery' else 'Bereich %d' % sec['n'])
         fields.append({'name': 's%d' % sec['n'], 'label': label, 'type': 'object', 'fields': fs})
+    if slug == 'home':
+        fields.append({'name': 'new_tiles', 'label': 'Neue Projekt-Kacheln (zusätzlich zu den bisherigen)', 'type': 'object',
+                       'list': {'collapsible': {'collapsed': False, 'summary': '{title}'}},
+                       'description': 'Jede neue Kachel erscheint im Raster unter der gewählten Kachel, mit demselben Abstand wie die anderen. Mehrere Kacheln in derselben Spalte folgen untereinander, die Reihenfolge änderst du durch Ziehen.',
+                       'fields': [{'name': 'title', 'label': 'Titel (z. B. MEIN PROJEKT)', 'type': 'string'},
+                                  {'name': 'link', 'label': 'Link', 'type': 'string', 'description': 'Seite dieser Website (z. B. /mein-projekt) oder eine Adresse mit https://'},
+                                  img_field('image', 'Bild'), vid_field('video', 'oder Video (hat Vorrang vor dem Bild)'),
+                                  select('place', 'Anzeigen unter', [('left', 'Unter Vortex (linke Spalte)'), ('right', 'Unter Letzter Anruf (rechte Spalte, dort ist freier Platz)')], default='left')]})
     fields.append(blocks_field('extra', 'Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)',
                                'Hier kannst du Texte, Bilder, Filme, Galerien und mehr hinzufügen, ohne am bestehenden Aufbau etwas zu ändern.'))
     return {'name': 'page_' + slug.replace('-', '_'), 'label': PAGE_LABELS.get(slug, slug), 'type': 'file',

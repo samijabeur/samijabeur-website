@@ -464,6 +464,46 @@ content:
           label: Link
           type: string
           description: Seite dieser Website, z. B. /vortex
+    - name: new_tiles
+      label: Neue Projekt-Kacheln (zusätzlich zu den bisherigen)
+      type: object
+      list:
+        collapsible:
+          collapsed: false
+          summary: '{title}'
+      description: Jede neue Kachel erscheint im Raster unter der gewählten Kachel, mit demselben Abstand wie die anderen. Mehrere Kacheln in
+        derselben Spalte folgen untereinander, die Reihenfolge änderst du durch Ziehen.
+      fields:
+      - name: title
+        label: Titel (z. B. MEIN PROJEKT)
+        type: string
+      - name: link
+        label: Link
+        type: string
+        description: Seite dieser Website (z. B. /mein-projekt) oder eine Adresse mit https://
+      - name: image
+        label: Bild
+        type: image
+        options:
+          media: images
+      - name: video
+        label: oder Video (hat Vorrang vor dem Bild)
+        type: file
+        options:
+          media: videos
+          extensions:
+          - mp4
+          - webm
+      - name: place
+        label: Anzeigen unter
+        type: select
+        options:
+          values:
+          - value: left
+            label: Unter Vortex (linke Spalte)
+          - value: right
+            label: Unter Letzter Anruf (rechte Spalte, dort ist freier Platz)
+        default: left
     - name: extra
       label: Weitere Inhalte (werden unter dem bisherigen Inhalt angehängt)
       type: block

@@ -280,6 +280,8 @@ body.is-locked { overflow: hidden; }
 .cell--bgvideo::before { content: ""; display: block; padding-top: 56.25%; }
 /* Videoblock der Galerie (wie der Original-Player): Das Video liegt oben in der Zelle in einer 16:9-Fläche und wird nie beschnitten (Videos mit anderem Format bekommen schwarze Ränder). */
 .cell--vcontain > video { bottom: auto; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+/* Neue Projekt-Kacheln der Startseite: am Rechner füllen sie die Rasterzeilen, am Handy gilt 16:9 */
+@media (max-width: 767px) { .cell--slot::before { content: ""; display: block; padding-top: 56.25%; } }
 .cell--film { background: #000; }
 /* Platzhalter-Höhe wie beim Original-Player: Seitenverhältnis des Films bestimmt die Zeilenhöhe */
 .cell--film::before { content: ""; display: block; padding-top: var(--film-pad, 56.25%); }
