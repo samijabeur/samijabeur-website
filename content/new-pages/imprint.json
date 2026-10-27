@@ -1,0 +1,19 @@
+{
+  "name": "imprint",
+  "description": "Imprent for the website https://samijabeur.com",
+  "menu": "none",
+  "blocks": [
+    {
+      "type": "text",
+      "text": "imprint",
+      "style": "title",
+      "align": "center"
+    },
+    {
+      "type": "text",
+      "text": "sami jabeur\n\nkornsteinplatz 8\n5400 hallein\naustria\n\ncontact: \nhello@samijabeur.com",
+      "style": "body",
+      "align": "center"
+    }
+  ]
+}
