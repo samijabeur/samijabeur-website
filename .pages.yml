@@ -1562,6 +1562,41 @@ content:
   label: Menü und Einstellungen
   type: group
   items:
+  - name: footer
+    label: Fußzeile (unten auf jeder Seite)
+    type: file
+    path: content/footer.json
+    format: json
+    fields:
+    - name: link_label
+      label: 'Links: Name des Links (z. B. imprint; leer = nichts anzeigen)'
+      type: string
+    - name: link_url
+      label: 'Links: Seite oder Adresse (z. B. /imprint/)'
+      type: string
+    - name: copyright
+      label: 'Mitte: Text (z. B. © sami jabeur)'
+      type: string
+    - name: social
+      label: 'Rechts: Social-Media-Symbole (auch auf der About-Seite)'
+      type: object
+      list:
+        collapsible:
+          collapsed: true
+          summary: '{network}'
+      fields:
+      - name: network
+        label: Netzwerk
+        type: select
+        options:
+          values:
+          - value: instagram
+            label: Instagram
+          - value: linkedin
+            label: LinkedIn
+      - name: url
+        label: Adresse (https://…)
+        type: string
   - name: navigation
     label: Menü
     type: file
@@ -1613,9 +1648,6 @@ content:
       label: Domain (z. B. www.samijabeur.com)
       type: string
       description: Nur ändern, wenn sich die Adresse der Website ändert. Muss auch in GitHub unter Settings → Pages eingetragen sein.
-    - name: footer
-      label: Fußzeile (unten auf jeder Seite)
-      type: string
     - name: default_description
       label: Standard-Beschreibung für Google (wenn eine Seite keine eigene hat)
       type: text
@@ -1625,26 +1657,6 @@ content:
     - name: cookie_button
       label: Cookie-Hinweis (Button)
       type: string
-    - name: social
-      label: Social-Media-Links (About-Seite)
-      type: object
-      list:
-        collapsible:
-          collapsed: true
-          summary: '{network}'
-      fields:
-      - name: network
-        label: Netzwerk
-        type: select
-        options:
-          values:
-          - value: instagram
-            label: Instagram
-          - value: linkedin
-            label: LinkedIn
-      - name: url
-        label: Adresse (https://…)
-        type: string
 settings:
   commit:
     templates:

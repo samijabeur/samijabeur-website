@@ -62,6 +62,7 @@ class Builder:
         self.out = out
         self.local = local
         self.site = load('content/site.json', {})
+        self.footer = load('content/footer.json', {})
         self.nav = load('content/navigation.json', {'items': []})
         self.domain = self.site.get('domain', '')
         self.base = ('https://' + self.domain) if self.domain else ''
@@ -169,7 +170,7 @@ class Builder:
             st.append('--film-pad:%s' % b.get('film_pad', '56.25%'))
         elif t == 'social':
             cls.append('social')
-            for s in self.site.get('social', []):
+            for s in self.footer.get('social', []):
                 if s.get('network') in self.icons and s.get('url'):
                     label = {'instagram': 'Instagram', 'linkedin': 'LinkedIn'}.get(s['network'], s['network'])
                     inner += '<a href="%s" target="_blank" rel="noopener" aria-label="%s"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-%s"/></svg></a>' % (esc(s['url']), label, s['network'])
@@ -401,6 +402,25 @@ class Builder:
                 '<div class="mobile-menu__panel" data-panel="projects">%s</div></div></header>') % (
             self.url(R, ''), esc(self.site.get('site_name', '')), desk, mob_root, mob_sub)
 
+    def site_footer(self, R):
+        """Fußzeile unter jeder Seite: links Link (Imprint), Mitte Copyright, rechts Social-Symbole."""
+        f = self.footer
+        left = ''
+        if f.get('link_label'):
+            href = (f.get('link_url') or '').strip()
+            if href.startswith('/'): href = self.url(R, href)
+            left = '<a href="%s">%s</a>' % (esc(href), esc(f['link_label']))
+        mid = esc(f.get('copyright', ''))
+        icons = ''
+        for s in f.get('social', []):
+            if s.get('network') in self.icons and s.get('url'):
+                label = {'instagram': 'Instagram', 'linkedin': 'LinkedIn'}.get(s['network'], s['network'])
+                icons += '<a href="%s" target="_blank" rel="noopener" aria-label="%s"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-%s"/></svg></a>' % (esc(s['url']), label, s['network'])
+        if not (left or mid or icons): return ''
+        return ('<footer class="site-footer"><div class="site-footer__inner">'
+                '<div class="site-footer__left">%s</div><div class="site-footer__mid">%s</div>'
+                '<div class="site-footer__right social">%s</div></div></footer>\n') % (left, mid, icons)
+
     def sprite(self):
         return ('<svg width="0" height="0" style="position:absolute" aria-hidden="true">' +
                 ''.join('<symbol id="i-%s" viewBox="0 0 64 64">%s</symbol>' % (k, v) for k, v in self.icons.items()) + '</svg>')
@@ -439,11 +459,12 @@ class Builder:
 <main>
 %(body)s
 </main>
+%(footer)s
 %(cookie)s<script src="%(R)sassets/js/site.js" defer></script>
 </body>
 </html>
 ''' % dict(title=esc(title), desc=esc(desc), canon=canon, site=site, R=R, preload=preload, sitename=esc(self.site.get('site_name', '')),
-           cls=slug or 'home', home=' homepage' if home else '', sprite=self.sprite() if sprite else '',
+           cls=slug or 'home', home=' homepage' if home else '', sprite=self.sprite(), footer=self.site_footer(R),
            header=self.header(R, nav_items), body=body_html, cookie=cookie)
 
     # ------------------------------------------------------------------ Hauptablauf
@@ -514,8 +535,7 @@ class Builder:
             for i, sec in enumerate(secs):
                 c = C.get('s%d' % sec['n'])
                 if sec.get('footer'):
-                    footer += self.render_section(R, sec, c, False)
-                    continue
+                    continue            # alte Einzel-Fußzeile: ersetzt durch die gemeinsame Fußzeile (site_footer)
                 body += self.render_section(R, sec, c, i == 0, C.get('new_tiles') if sec.get('tile_slots') else None)
             body += self.render_flex(R, C.get('extra'))
             body += footer
@@ -530,13 +550,6 @@ class Builder:
             body = self.render_flex(R, c.get('blocks'), first_is_page_start=True)
             if not body:
                 body = self.flex_section('<div class="cell" style="--m:1/2/2/10;--d:1/2/2/26"><h3 class="ta-center">%s</h3></div>' % esc(name), first=True)
-            # Fußzeile wie auf den anderen Seiten
-            ft = self.site.get('footer', '')
-            if ft:
-                body += ('<section class="section section--custom section--middle" style="--pt:var(--pad-xs);--pb:var(--pad-xs)">'
-                         '<div class="grid" style="--rows-m:2;--rows-d:3;--rg:0px;--cg:0px">'
-                         '<div class="cell footer-text" style="--m:2/2/3/10;--d:2/10/3/18;--jm:flex-start;--jd:center"><p class="ta-center small">%s</p></div>'
-                         '</div></section>') % self.rewrite_links(to_html(ft), R)
             title = '%s | %s' % (self.site.get('title_prefix') or self.site.get('site_name', ''), name)
             pages.append((slug, c.get('title') or title, c.get('description', ''), body, R, False, False))
 

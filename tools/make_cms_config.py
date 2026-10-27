@@ -263,11 +263,19 @@ def build():
             {'name': 'title_prefix', 'label': 'Vorspann der Seitentitel (z. B. „Sami Jabeur“ ergibt „Sami Jabeur | Vortex“)', 'type': 'string'},
             {'name': 'domain', 'label': 'Domain (z. B. www.samijabeur.com)', 'type': 'string',
              'description': 'Nur ändern, wenn sich die Adresse der Website ändert. Muss auch in GitHub unter Settings → Pages eingetragen sein.'},
-            {'name': 'footer', 'label': 'Fußzeile (unten auf jeder Seite)', 'type': 'string'},
             {'name': 'default_description', 'label': 'Standard-Beschreibung für Google (wenn eine Seite keine eigene hat)', 'type': 'text'},
             {'name': 'cookie_text', 'label': 'Cookie-Hinweis (Text; leer lassen = kein Banner)', 'type': 'text'},
             {'name': 'cookie_button', 'label': 'Cookie-Hinweis (Button)', 'type': 'string'},
-            {'name': 'social', 'label': 'Social-Media-Links (About-Seite)', 'type': 'object', 'list': {'collapsible': {'collapsed': True, 'summary': '{network}'}},
+        ],
+    }
+    footer = {
+        'name': 'footer', 'label': 'Fußzeile (unten auf jeder Seite)', 'type': 'file', 'path': 'content/footer.json', 'format': 'json',
+        'fields': [
+            {'name': 'link_label', 'label': 'Links: Name des Links (z. B. imprint; leer = nichts anzeigen)', 'type': 'string'},
+            {'name': 'link_url', 'label': 'Links: Seite oder Adresse (z. B. /imprint/)', 'type': 'string'},
+            {'name': 'copyright', 'label': 'Mitte: Text (z. B. © sami jabeur)', 'type': 'string'},
+            {'name': 'social', 'label': 'Rechts: Social-Media-Symbole (auch auf der About-Seite)', 'type': 'object',
+             'list': {'collapsible': {'collapsed': True, 'summary': '{network}'}},
              'fields': [select('network', 'Netzwerk', [('instagram', 'Instagram'), ('linkedin', 'LinkedIn')]),
                         {'name': 'url', 'label': 'Adresse (https://…)', 'type': 'string'}]},
         ],
@@ -283,7 +291,7 @@ def build():
         'content': [
             {'name': 'pages', 'label': 'Seiten', 'type': 'group', 'items': pages},
             new_pages,
-            {'name': 'config', 'label': 'Menü und Einstellungen', 'type': 'group', 'items': [nav, site]},
+            {'name': 'config', 'label': 'Menü und Einstellungen', 'type': 'group', 'items': [footer, nav, site]},
         ],
         'settings': {'commit': {'templates': {
             'create': 'Neu angelegt: {path}', 'update': 'Geändert: {path}', 'delete': 'Gelöscht: {path}',

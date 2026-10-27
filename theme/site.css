@@ -259,10 +259,21 @@ body.is-locked { overflow: hidden; }
   .credits h3 { font-size: 18px; }
 }
 
-/* Fußzeile */
-.cell.footer-text p { color: var(--yellow); }
-@media (max-width: 768px) {
-  .cell.footer-text p.small { font-size: 10px; line-height: 1.4; }
+/* Fußzeile: links Link, Mitte Copyright, rechts Social-Symbole */
+.site-footer { background: var(--black); padding: max(20px, 2vw) 0; }
+.site-footer__inner {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; column-gap: 12px;
+  width: var(--content-w, calc(100vw - 12vw)); max-width: var(--maxw); margin: 0 auto;
+  font-size: var(--fs-small); line-height: 1.2; font-weight: 300; color: var(--yellow);
+}
+.site-footer a { color: var(--yellow); text-decoration: none; }
+.site-footer__left a:hover { text-decoration: underline; }
+.site-footer__right { display: flex; justify-content: flex-end; gap: 10px; align-items: center; }
+@media (max-width: 767px) {
+  .site-footer { --content-w: calc(100vw - 12vw); font-size: 12px; }
+}
+@media (min-width: 768px) {
+  .site-footer { --content-w: min(var(--maxw), calc(100vw - 4vw)); }
 }
 
 /* Social-Icons (Über mich) */
